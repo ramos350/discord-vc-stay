@@ -231,8 +231,8 @@ export class VoiceStayService {
 			const newConnection = joinVoiceChannel({
 				guildId: guild.id,
 				channelId: channel.id,
-				selfDeaf: true,
-				selfMute: false,
+				selfDeaf: false,
+				selfMute: true,
 				adapterCreator: guild.voiceAdapterCreator as DiscordGatewayAdapterCreator
 			});
 

@@ -5,7 +5,6 @@ TypeScript CLI to keep a Discord **user account** connected to a specific voice/
 > **Warning:** Using a user token (selfbot) may violate Discord's Terms of Service. Use at your own risk.
 
 ## Requirements
-- Node.js 20+
 - [Bun](https://bun.sh/) 1.0+
 - A Discord user token
 - Your account must be a member of the target server with voice permissions
@@ -60,10 +59,10 @@ bun run start
 
 ## Docker (Linux, VPS, NAS)
 
-Build image:
+Pull the pre-built image from GitHub Container Registry:
 
 ```bash
-docker build -t discord-vc-stay .
+docker pull ghcr.io/ramosnguyen/discord-vc-stay:latest
 ```
 
 Run container:
@@ -76,12 +75,26 @@ docker run -d \
   -e DISCORD_GUILD_ID=YOUR_GUILD_ID \
   -e DISCORD_CHANNEL_ID=YOUR_CHANNEL_ID \
   -e LOG_LEVEL=info \
-  discord-vc-stay
+  ghcr.io/ramosnguyen/discord-vc-stay:latest
 ```
 
 ## Docker Compose
 
-Create `.env`:
+1. Create a `docker-compose.yml` file:
+
+```yaml
+services:
+  discord-vc-stay:
+    image: ghcr.io/ramosnguyen/discord-vc-stay:latest
+    restart: unless-stopped
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_GUILD_ID: ${DISCORD_GUILD_ID}
+      DISCORD_CHANNEL_ID: ${DISCORD_CHANNEL_ID}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+```
+
+2. Create a `.env` file in the same folder:
 
 ```env
 DISCORD_TOKEN=YOUR_USER_TOKEN
@@ -90,10 +103,10 @@ DISCORD_CHANNEL_ID=YOUR_CHANNEL_ID
 LOG_LEVEL=info
 ```
 
-Then run:
+3. Run:
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
 ## CLI help

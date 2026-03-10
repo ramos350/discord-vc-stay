@@ -1,6 +1,6 @@
 services:
   discord-vc-stay:
-    image: ghcr.io/ramos350/discord-vc-stay:latest
+    image: ghcr.io/ramosnguyen/discord-vc-stay:latest
     restart: unless-stopped
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
